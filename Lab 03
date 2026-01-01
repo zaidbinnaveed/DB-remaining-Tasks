@@ -1,0 +1,78 @@
+Q1
+CREATE TABLE employees (
+emp_id NUMBER PRIMARY KEY,
+emp_name VARCHAR2(30),
+salary NUMBER CHECK (salary > 20000),
+dept_id NUMBER
+);
+
+Q2
+ALTER TABLE employees RENAME COLUMN emp_name TO full_name;
+
+Q3
+ALTER TABLE employees DROP CONSTRAINT employees_salary_ck;
+INSERT INTO employees VALUES (1,'Test',5000,NULL);
+
+Q4
+CREATE TABLE departments (
+dept_id NUMBER PRIMARY KEY,
+dept_name VARCHAR2(30) UNIQUE
+);
+INSERT INTO departments VALUES (1,'HR');
+INSERT INTO departments VALUES (2,'IT');
+INSERT INTO departments VALUES (3,'Finance');
+
+Q5
+ALTER TABLE employees ADD CONSTRAINT emp_dept_fk FOREIGN KEY (dept_id) REFERENCES departments(dept_id);
+
+Q6
+ALTER TABLE employees ADD bonus NUMBER(6,2) DEFAULT 1000;
+
+Q7
+ALTER TABLE employees ADD city VARCHAR2(20) DEFAULT 'Karachi';
+ALTER TABLE employees ADD age NUMBER CHECK (age > 18);
+
+Q8
+DELETE FROM employees WHERE emp_id IN (1,3);
+
+Q9
+ALTER TABLE employees MODIFY full_name VARCHAR2(20);
+ALTER TABLE employees MODIFY city VARCHAR2(20);
+
+Q10
+ALTER TABLE employees ADD email VARCHAR2(50);
+ALTER TABLE employees ADD CONSTRAINT emp_email_uk UNIQUE (email);
+
+Q11
+ALTER TABLE employees ADD CONSTRAINT emp_bonus_uk UNIQUE (bonus);
+
+Q12
+ALTER TABLE employees ADD dob DATE;
+ALTER TABLE employees ADD CONSTRAINT emp_dob_ck CHECK (MONTHS_BETWEEN(SYSDATE,dob)/12 >= 18);
+
+Q13
+INSERT INTO employees (emp_id,full_name,dob) VALUES (2,'Young Emp',SYSDATE);
+
+Q14
+ALTER TABLE employees DROP CONSTRAINT emp_dept_fk;
+INSERT INTO employees (emp_id,full_name,dept_id) VALUES (4,'No Dept',99);
+ALTER TABLE employees ADD CONSTRAINT emp_dept_fk FOREIGN KEY (dept_id) REFERENCES departments(dept_id);
+
+Q15
+ALTER TABLE employees DROP COLUMN age;
+ALTER TABLE employees DROP COLUMN city;
+
+Q16
+SELECT d.dept_name,e.full_name FROM departments d LEFT JOIN employees e ON d.dept_id=e.dept_id;
+
+Q17
+ALTER TABLE employees RENAME COLUMN salary TO monthly_salary;
+
+Q18
+SELECT dept_id FROM departments d WHERE NOT EXISTS (SELECT 1 FROM employees e WHERE d.dept_id=e.dept_id);
+
+Q19
+TRUNCATE TABLE students;
+
+Q20
+SELECT dept_id FROM employees GROUP BY dept_id ORDER BY COUNT(*) DESC FETCH FIRST 1 ROW ONLY;

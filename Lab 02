@@ -1,0 +1,59 @@
+Q1
+SELECT SUM(salary) FROM employees;
+
+Q2
+SELECT AVG(salary) FROM employees;
+
+Q3
+SELECT manager_id, COUNT(*) FROM employees GROUP BY manager_id;
+
+Q4
+SELECT * FROM employees WHERE salary = (SELECT MIN(salary) FROM employees);
+
+Q5
+SELECT TO_CHAR(SYSDATE,'DD-MM-YYYY') FROM dual;
+
+Q6
+SELECT TO_CHAR(SYSDATE,'DAY MONTH YYYY') FROM dual;
+
+Q7
+SELECT * FROM employees WHERE TO_CHAR(hire_date,'DAY')='WEDNESDAY';
+
+Q8
+SELECT MONTHS_BETWEEN(TO_DATE('01-JAN-2025','DD-MON-YYYY'),TO_DATE('01-OCT-2024','DD-MON-YYYY')) FROM dual;
+
+Q9
+SELECT employee_id, MONTHS_BETWEEN(SYSDATE,hire_date) FROM employees;
+
+Q10
+SELECT SUBSTR(last_name,1,5) FROM employees;
+
+Q11
+SELECT LPAD(first_name,15,'*') FROM employees;
+
+Q12
+SELECT LTRIM(' Oracle') FROM dual;
+
+Q13
+SELECT INITCAP(first_name||' '||last_name) FROM employees;
+
+Q14
+SELECT NEXT_DAY(TO_DATE('20-AUG-2022','DD-MON-YYYY'),'MONDAY') FROM dual;
+
+Q15
+SELECT TO_CHAR(TO_DATE('25-DEC-2023','DD-MON-YYYY'),'MM-YYYY') FROM dual;
+
+Q16
+SELECT DISTINCT salary FROM employees ORDER BY salary;
+
+Q17
+SELECT ROUND(salary,-2) FROM employees;
+
+Q18
+SELECT department_id FROM employees GROUP BY department_id ORDER BY COUNT(*) DESC FETCH FIRST 1 ROW ONLY;
+
+Q19
+SELECT department_id FROM employees GROUP BY department_id ORDER BY SUM(salary) DESC FETCH FIRST 3 ROWS ONLY;
+
+Q20
+SELECT department_id FROM employees GROUP BY department_id ORDER BY COUNT(*) DESC FETCH FIRST 1 ROW ONLY;
